@@ -1,0 +1,42 @@
+Sub Stock()
+
+Dim Total_Stock_Volume As Variant
+Total_Stock_Volume = 0
+
+Dim Summary_Table_Row As Variant
+Summary_Table_Row = 2
+
+
+For Each ws In Worksheets
+
+ws.Cells(1, 9).Value = "Ticker"
+
+ws.Cells(1, 10).Value = "Total Stock Volume"
+
+For i = 2 To 797711
+
+If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+
+Cells(i, 9).Value = Cells(i, 1).Value
+
+Total_Stock_Volume = Total_Stock_Volume + Cells(i, 7).Value
+
+Range("I" & Summary_Table_Row).Value = Cells(i, 9).Value
+
+Range("J" & Summary_Table_Row).Value = Total_Stock_Volume
+
+Summary_Table_Row = Summary_Table_Row + 1
+
+Total_Stock_Volume = 0
+
+Else
+
+Total_Stock_Volume = Total_Stock_Volume + Cells(i, 7).Value
+
+End If
+
+Next i
+
+Next ws
+
+End Sub
